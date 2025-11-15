@@ -1,4 +1,4 @@
-# Eureka Forbes – Coupons Generator
+# Coupons Generator
 
 A modern, fast, and production-ready **desktop application** built using:
 
