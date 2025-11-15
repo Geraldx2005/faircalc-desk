@@ -1,16 +1,67 @@
-# React + Vite
+# Eureka Forbes – Coupons Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, fast, and production-ready **desktop application** built using:
 
-Currently, two official plugins are available:
+- **Electron** (desktop runtime)
+- **Vite + React** (frontend)
+- **Tailwind CSS** (UI styling)
+- **React Hot Toast** (notifications)
+- **ESBuild** (bundling main + preload scripts)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This app allows Eureka Forbes staff or distributors to quickly **generate discount coupons as PDFs**, customize the output, and download them using a clean and stable Electron interface.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Features
 
-## Expanding the ESLint configuration
+### ✔ Desktop Installer (Windows)
+- Generates a `.exe` installer using **electron-builder**
+- Includes application icon and metadata
+- Smooth installation experience
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### ✔ Custom PDF Generation
+- Fast React interface
+- Generates PDF coupons with your custom data
+- Supported in both dev & production builds
+
+### ✔ Electron Download Handling
+- Custom filename: **ER - Coupons.pdf**
+- Save dialog appears on download
+- No random filenames
+- Fully functional `will-download` handler
+- Smooth notifications (`Downloading…`, `Complete!`, etc.)
+
+### ✔ React Hot Toast Notifications
+- Clean, modern toast messages for:
+  - Download started
+  - Download completed
+  - Download failed
+
+### ✔ Preload Script (IPC Bridge)
+- Secure communication between frontend and Electron
+- Properly handled with `preload.cjs`
+
+### ✔ Production-Ready Build Setup
+- ESBuild for main/preload bundling
+- Vite for frontend bundling
+- `release/` output folder for .exe builds
+- `.gitignore` excludes build artifacts
+
+---
+
+## 🛠 Technologies Used
+
+| Layer | Tech |
+|-------|------|
+| Desktop Runtime | Electron |
+| Frontend UI | React + Vite |
+| Styling | Tailwind CSS |
+| Notifications | React Hot Toast |
+| Bundler | ESBuild |
+| Packaging | electron-builder |
+| Language | JavaScript (ESM + CJS) |
+
+---
+
+## 📦 Folder Structure
+
