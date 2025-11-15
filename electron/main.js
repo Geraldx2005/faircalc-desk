@@ -2,7 +2,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-console.log("Preload path:", path.join(__dirname, "../electron/preload.js"));
+console.log("Preload path:", path.join(__dirname, "../electron/preload.cjs"));
 
 import { app, BrowserWindow, session, ipcMain } from "electron";
 
@@ -10,12 +10,15 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1000,
     height: 600,
+    icon: path.join(__dirname, "../assets/icon.png"),
     webPreferences: {
-      preload: path.join(__dirname, "../electron/preload.js"),
+      preload: path.join(__dirname, "preload.cjs"),
+      sandbox: false, // ← MUST ADD (Production)
+      webSecurity: false, // ← ALLOWS SAVE DIALOG (Production)
     },
   });
 
-  // Handle forced downloads from renderer
+  // Renderer triggers a download (blob URL)
   ipcMain.on("electron-download", (event, url) => {
     const win = BrowserWindow.getFocusedWindow();
     if (win) {
@@ -23,19 +26,28 @@ function createWindow() {
     }
   });
 
-  // Load your renderer
+  // Load renderer build
   win.loadFile(path.join(__dirname, "../renderer/dist/index.html"));
 
-  // Download events
-  session.defaultSession.on("will-download", (event, item) => {
-    const filename = item.getFilename();
-    win.webContents.send("download-started", filename);
+  // Handle download and apply custom filename to Save dialog
+  session.defaultSession.on("will-download", (event, item, webContents) => {
+    // Change ONLY the default filename in Save dialog
+    item.setSaveDialogOptions({
+      title: "Save PDF",
+      defaultPath: "ER - Coupons.pdf",
+      filters: [{ name: "PDF File", extensions: ["pdf"] }],
+    });
+
+    // Notify renderer
+    item.on("updated", () => {
+      webContents.send("download-started", "ER - Coupons.pdf");
+    });
 
     item.once("done", (event, state) => {
       if (state === "completed") {
-        win.webContents.send("download-complete", filename);
+        webContents.send("download-complete", "ER - Coupons.pdf");
       } else {
-        win.webContents.send("download-failed", filename);
+        webContents.send("download-failed", "ER - Coupons.pdf");
       }
     });
   });

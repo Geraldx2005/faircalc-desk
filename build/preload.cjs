@@ -1,0 +1,1 @@
+var{contextBridge:l,ipcRenderer:n}=require("electron");l.exposeInMainWorld("electronAPI",{onDownloadStarted:o=>n.on("download-started",(d,e)=>o(e)),onDownloadComplete:o=>n.on("download-complete",(d,e)=>o(e)),onDownloadFailed:o=>n.on("download-failed",(d,e)=>o(e)),startElectronDownload:o=>n.send("electron-download",o)});

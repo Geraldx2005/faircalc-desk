@@ -1,33 +1,39 @@
 {
   "name": "eureka-forbes",
+  "productName": "Eureka Forbes",
+  "description": "Eureka Forbes - Coupon Generator",
+  "author": "Gerald",
   "version": "1.0.0",
   "type": "module",
   "main": "build/main.js",
   "scripts": {
-    "build:renderer": "cd renderer && npm install && npm run build",
+    "build:renderer": "cd renderer && npm run build",
     "bundle:main": "esbuild electron/main.js --bundle --platform=node --format=esm --outfile=build/main.js --minify --external:electron",
-    "bundle:preload": "esbuild electron/preload.js --bundle --platform=node --format=esm --outfile=build/preload.js --minify --external:electron",
+    "bundle:preload": "esbuild electron/preload.cjs --bundle --platform=node --format=cjs --outfile=build/preload.cjs --minify --external:electron",
     "build": "npm run build:renderer && npm run bundle:main && npm run bundle:preload",
-    "dist": "npm run build && electron-builder --win --x64"
-  },
-  "dependencies": {
-    "electron": "^32.0.0"
+    "dist": "npm run build && electron-builder"
   },
   "devDependencies": {
-    "esbuild": "^0.21.0",
-    "electron-builder": "^24.0.0"
+    "electron": "^32.0.0",
+    "electron-builder": "^24.0.0",
+    "esbuild": "^0.21.0"
   },
   "build": {
     "appId": "com.eureka-forbes.myapp",
     "asar": true,
     "compression": "maximum",
+    "directories": {
+      "output": "release"
+    },
     "files": [
       "build/**",
       "renderer/dist/**",
+      "electron/**",
       "package.json"
     ],
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "assets/icon.ico"
     }
   }
 }

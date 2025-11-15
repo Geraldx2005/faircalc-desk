@@ -287,18 +287,17 @@ export default function GeneratePDF({ coupons }) {
     generatePDFWhenReady();
   }, [isReady, qrList, coupons]);
 
-const handleDownload = () => {
-  if (!pdfBlob) return;
+  const handleDownload = () => {
+    if (!pdfBlob) return;
 
-  const blobURL = URL.createObjectURL(pdfBlob);
+    const blobURL = URL.createObjectURL(pdfBlob);
 
-  // trigger actual electron forced download
-  window.electronAPI.startElectronDownload(blobURL);
+    // trigger actual electron forced download
+    window.electronAPI.startElectronDownload(blobURL);
 
-  setTimeout(() => URL.revokeObjectURL(blobURL), 5000);
-};
-;
-
+    setTimeout(() => URL.revokeObjectURL(blobURL), 5000);
+  };
+  
   if (!isReady || qrList.length !== coupons.length) {
     return <LoadingSpinner message="Generating QR..." />;
   }

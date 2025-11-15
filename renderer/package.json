@@ -1,5 +1,5 @@
 {
-  "name": "eurka-forbes",
+  "name": "eureka-forbes",
   "description": "Eureka Forbes - Coupon Generator",
   "productName": "Eureka Forbes",
   "author": "Gerald",
@@ -27,6 +27,7 @@
     "qrcode.react": "^4.2.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-hot-toast": "^2.6.0",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
