@@ -1,10 +1,8 @@
 {
-  "name": "eureka-forbes",
-  "description": "Eureka Forbes - Coupon Generator",
-  "productName": "Eureka Forbes",
+  "name": "chronos",
   "author": "Gerald",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -22,12 +20,12 @@
     "@tailwindcss/vite": "^4.1.17",
     "buffer": "^6.0.3",
     "exceljs": "^4.4.0",
+    "framer-motion": "^12.23.24",
     "pdf-lib": "^1.17.1",
     "qrcode": "^1.5.4",
     "qrcode.react": "^4.2.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-hot-toast": "^2.6.0",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
