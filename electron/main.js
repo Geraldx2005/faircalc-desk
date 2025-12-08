@@ -10,44 +10,45 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1000,
     height: 600,
+    show: false, // ← prevents the glitch
     icon: path.join(__dirname, "../assets/icon.ico"),
+    autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.cjs"),
-      sandbox: false, // ← MUST ADD (Production)
-      webSecurity: false, // ← ALLOWS SAVE DIALOG (Production)
+      sandbox: false,
+      webSecurity: false,
     },
   });
 
-  // Renderer triggers a download (blob URL)
-  ipcMain.on("electron-download", (event, url) => {
-    const win = BrowserWindow.getFocusedWindow();
-    if (win) {
-      win.webContents.downloadURL(url);
-    }
-  });
+  // Maximize before showing → smooth, no flicker
+  win.maximize();
+  win.show();
 
-  // Load renderer build
+  // Load renderer HTML
   win.loadFile(path.join(__dirname, "../renderer/dist/index.html"));
 
-  // Handle download and apply custom filename to Save dialog
+  // Renderer requests a blob download
+  ipcMain.on("electron-download", (event, url) => {
+    win.webContents.downloadURL(url);
+  });
+
+  // Custom Save Dialog filename
   session.defaultSession.on("will-download", (event, item, webContents) => {
-    // Change ONLY the default filename in Save dialog
     item.setSaveDialogOptions({
       title: "Save PDF",
-      defaultPath: "ER - Coupons.pdf",
+      defaultPath: "EF - Coupons.pdf",
       filters: [{ name: "PDF File", extensions: ["pdf"] }],
     });
 
-    // Notify renderer
     item.on("updated", () => {
-      webContents.send("download-started", "ER - Coupons.pdf");
+      webContents.send("download-started", "EF - Coupons.pdf");
     });
 
     item.once("done", (event, state) => {
       if (state === "completed") {
-        webContents.send("download-complete", "ER - Coupons.pdf");
+        webContents.send("download-complete", "EF - Coupons.pdf");
       } else {
-        webContents.send("download-failed", "ER - Coupons.pdf");
+        webContents.send("download-failed", "EF - Coupons.pdf");
       }
     });
   });
