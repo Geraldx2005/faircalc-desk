@@ -1,9 +1,9 @@
 {
-  "name": "chronos",
-  "productName": "Chronos",
-  "description": "Chronos - Coupon Generator",
+  "name": "faircalc",
+  "productName": "FairCalc",
+  "description": "FairCalc - A fast and simple desktop tool for calculating label cost, ribbon cost, and TTR usage",
   "author": "Gerald",
-  "version": "2.0.1",
+  "version": "1.0.1",
   "type": "module",
   "main": "build/main.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "esbuild": "^0.21.0"
   },
   "build": {
-    "appId": "com.eureka-forbes.myapp",
+    "appId": "com.faircalc.myapp",
     "asar": true,
     "compression": "maximum",
     "directories": {
