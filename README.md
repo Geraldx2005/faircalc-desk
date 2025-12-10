@@ -15,12 +15,4 @@ Built using **React + TailwindCSS** and packaged as a desktop application.
 
 ---
 
-## 📘 How to Use
-1. Select **Label** or **Ribbon** tab  
-2. Enter required values  
-3. Click **Calculate**  
-4. Use **Clear** to reset fields  
-
----
-
 **FairCalc — By Gerald**
