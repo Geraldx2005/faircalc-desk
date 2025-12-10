@@ -8,9 +8,9 @@ import { app, BrowserWindow, session, ipcMain } from "electron";
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1000,
-    height: 600,
-    show: false, // ← prevents the glitch
+    width: 440,       // ← fixed width
+    height: 680,       // ← fixed height
+    show: false,       // ← smooth no-flicker launch
     icon: path.join(__dirname, "../assets/icon.ico"),
     autoHideMenuBar: true,
     webPreferences: {
@@ -20,9 +20,10 @@ function createWindow() {
     },
   });
 
-  // Maximize before showing → smooth, no flicker
-  win.maximize();
-  win.show();
+  // Just show the window normally — no maximize
+  win.once("ready-to-show", () => {
+    win.show();
+  });
 
   // Load renderer HTML
   win.loadFile(path.join(__dirname, "../renderer/dist/index.html"));
